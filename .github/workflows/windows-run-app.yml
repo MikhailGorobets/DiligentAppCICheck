@@ -1,0 +1,22 @@
+name: Run My Executable
+
+on: [push, pull_request]  # Triggers the workflow on push or pull request
+
+jobs:
+  run-executable:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]  # You can add macOS as well if needed
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build on Windows
+        if: runner.os == 'Windows'
+        run: |
+          # Add any build steps here if needed (e.g., compiling the executable)
+          # Example: msbuild MySolution.sln /p:Configuration=Release
+          # Assuming the exe is in the current directory
+          Tutorial01_HelloTriangle.exe --mode d3d11_sw
