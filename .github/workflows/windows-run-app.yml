@@ -13,10 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Build on Windows
+      - name: Run window application on Windows
         if: runner.os == 'Windows'
         run: |
-          # Add any build steps here if needed (e.g., compiling the executable)
-          # Example: msbuild MySolution.sln /p:Configuration=Release
-          # Assuming the exe is in the current directory
-          Tutorial01_HelloTriangle.exe --mode d3d11_sw
+          ./Tutorial01_HelloTriangle.exe --mode d3d11_sw > output.txt 2>&1
+          cat output.txt
+      - name: Run console application on Windows
+        if: runner.os == 'Windows'
+        run: |
+          ./BindingVariableParser.exe
+      - name: Upload log as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: output
+          path: output.txt
